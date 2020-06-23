@@ -1,3 +1,24 @@
-li a {
-    color: green;
+a, .add_q {
+    text-decoration: none;
+    color: black;
+    border: 1px solid;
+    padding: 0.4px 4px;
+    border-radius: 4px;
+}
+
+.delete {
+    color: white;
+    background-color: red;
+    border: none;
+}
+
+input {
+    border: 1px solid;
+    border-radius: 4px;
+    outline: none;
+}
+
+.add_q {
+    background-color: lightgreen;
+    border: none;
 }

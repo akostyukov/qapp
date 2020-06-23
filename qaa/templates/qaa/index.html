@@ -4,9 +4,9 @@
 
 <form action="{% url 'qaa:create' %}" method="POST">
     {% csrf_token %}
-    Введите вопрос:&thinsp;<input type="text" name="question"><br>
-    Введите ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer"><br>
-    <button class="add_btn" type="submit">Добавить</button>
+    Введите вопрос:&thinsp;<input type="text" name="question" required autofocus><br>
+    Введите ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer" required><br>
+    <input type="submit" class="add_q" value="Добавить">
 </form>
 
 --------------------------------------------------------<br><br>
@@ -20,12 +20,12 @@
             <b>Ответ человека:</b> {{ question.human_answer }}<br>
         {% endif %}
 
-        <a href="{% url 'qaa:edit' question.id %}">Изменить</a> | <a href="{% url 'qaa:delete' question.id %}">Удалить</a><br>
+        <a href="{% url 'qaa:edit' question.id %}">Изменить</a> | <a href="{% url 'qaa:delete' question.id %}" class="delete">Удалить</a><br>
         --------------------------<br>
     {% endfor %}
     --------------------------------------------------------<br>
-    <button type="button"><a href="{% url 'qaa:start' %}">Начать тест</a></button>
-    <button type="button"><a href="{% url 'qaa:clear' %}">Отчистить</a></button>
+    <a href="{% url 'qaa:start' %}">Начать тест</a>
+    <a href="{% url 'qaa:clear' %}" class="delete">Отчистить</a>
 {% else %}
     Вопросов нет
 {% endif %}

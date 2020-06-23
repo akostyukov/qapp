@@ -11,7 +11,7 @@
     <b>Вопрос:</b> {{ question_without_answer.question_text }}
     <form action="{% url 'qaa:add_answer' question_without_answer.id %}" method="POST">
         {% csrf_token %}
-        <b>Ваш ответ:</b> <input type="text" name="human_answer">
+        <b>Ваш ответ:</b> <input type="text" name="human_answer" required autofocus>
         <button type="submit">Отправить</button>
     </form>
 {% endif %}
@@ -20,7 +20,7 @@
     <b>Вопрос:</b> {{ question_without_answer.question_text }}
     <form action="{% url 'qaa:add_answer' question_without_answer.id %}" method="POST">
         {% csrf_token %}
-        <b>Ваш ответ:</b> <input type="text" name="human_answer">
+        <b>Ваш ответ:</b> <input type="text" name="human_answer" required autofocus>
         <button type="submit">Отправить</button>
     </form>
 {% endif %}
