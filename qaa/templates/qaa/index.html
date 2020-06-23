@@ -1,0 +1,31 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'qaa/style.css' %}">
+
+<form action="{% url 'qaa:create' %}" method="POST">
+    {% csrf_token %}
+    Введите вопрос:&thinsp;<input type="text" name="question"><br>
+    Введите ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer"><br>
+    <button class="add_btn" type="submit">Добавить</button>
+</form>
+
+--------------------------------------------------------<br><br>
+
+{% if list_of_questions %}
+    {% for question in list_of_questions %}
+        <b>Вопрос:</b> {{ question.question_text }}<br>
+        <b>Ответ:</b> {{ question.question_answer }}<br>
+
+        {% if question.human_answer %}
+            <b>Ответ человека:</b> {{ question.human_answer }}<br>
+        {% endif %}
+
+        <a href="{% url 'qaa:edit' question.id %}">Изменить</a> | <a href="{% url 'qaa:delete' question.id %}">Удалить</a><br>
+        --------------------------<br>
+    {% endfor %}
+    --------------------------------------------------------<br>
+    <button type="button"><a href="{% url 'qaa:start' %}">Начать тест</a></button>
+    <button type="button"><a href="{% url 'qaa:clear' %}">Отчистить</a></button>
+{% else %}
+    Вопросов нет
+{% endif %}

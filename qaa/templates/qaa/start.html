@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'qaa/style.css' %}">
+
+{% if questions_with_answer %}
+    {% for question in questions_with_answer %}
+        <b>Вопрос:</b> {{ question.question_text }}<br>
+        <b>Ответ:</b> {{ question.question_answer }}<br>
+        <b>Ваш ответ:</b> {{ question.human_answer }} <span class="correct">({{question.check_answers}})</span><br><br>
+    {% endfor %}
+{% else %}
+    <b>Вопрос:</b> {{ question_without_answer.question_text }}
+    <form action="{% url 'qaa:add_answer' question_without_answer.id %}" method="POST">
+        {% csrf_token %}
+        <b>Ваш ответ:</b> <input type="text" name="human_answer">
+        <button type="submit">Отправить</button>
+    </form>
+{% endif %}
+
+{% if questions_with_answer and question_without_answer != None %}
+    <b>Вопрос:</b> {{ question_without_answer.question_text }}
+    <form action="{% url 'qaa:add_answer' question_without_answer.id %}" method="POST">
+        {% csrf_token %}
+        <b>Ваш ответ:</b> <input type="text" name="human_answer">
+        <button type="submit">Отправить</button>
+    </form>
+{% endif %}
+
+{% if questions_with_answer and question_without_answer == None %}
+    ----------------------------------------------<br>
+    Количество верных ответов: <b>{{ count_of_correct_answers }} из {{ count_of_answers }}</b><br><br>
+    <button type="button"><a href="{% url 'qaa:index' %}">На главную</a></button>
+{% endif %}

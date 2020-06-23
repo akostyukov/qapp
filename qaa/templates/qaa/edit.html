@@ -1,0 +1,8 @@
+<h2>{{question.question_text}} - {{question.question_answer}}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    Введите новый вопрос:&thinsp;<input type="text" name="question" value="{{ question.question_text }}"><br>
+    Введите новый ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer" value="{{ question.question_answer }}"><br>
+    <button type="submit">Изменить</button>
+</form>
