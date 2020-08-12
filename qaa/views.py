@@ -57,7 +57,12 @@ def start(request):
 
 def add_answer(request, question_id):
     question = Question.objects.get(id=question_id)
-    question.human_answer = request.POST['human_answer']
+
+    if question.question_answer.lower() == request.POST['human_answer'].lower():
+        question.human_answer = question.question_answer
+    else:
+        question.human_answer = request.POST['human_answer']
+        
     question.save()
     return redirect('qaa:start')
 
