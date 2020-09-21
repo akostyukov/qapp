@@ -17,6 +17,7 @@ def create(request):
     )
     return redirect('qaa:index')
 
+
 def edit(request, question_id):
     question = Question.objects.get(id=question_id)
     if request.method == 'GET':
@@ -27,22 +28,24 @@ def edit(request, question_id):
         question.save()
         return redirect('qaa:index')
 
+
 def delete(request, question_id):
     Question.objects.get(id=question_id).delete()
     return redirect('qaa:index')
+
 
 def start(request):
     questions = Question.objects.all()
     questions_with_answer = []
     question_without_answer = None
     count_of_correct_answers = 0
-    
+
     for q in questions:
         if q.human_answer:
-            questions_with_answer.append(q)  
+            questions_with_answer.append(q)
         else:
             question_without_answer = q
-            break 
+            break
 
     for question in questions_with_answer:
         if question.human_answer == question.question_answer:
@@ -55,6 +58,7 @@ def start(request):
         'count_of_answers': f'{len(questions)} ({100 // len(questions) * count_of_correct_answers}%)'
     })
 
+
 def add_answer(request, question_id):
     question = Question.objects.get(id=question_id)
 
@@ -62,9 +66,10 @@ def add_answer(request, question_id):
         question.human_answer = question.question_answer
     else:
         question.human_answer = request.POST['human_answer']
-        
+
     question.save()
     return redirect('qaa:start')
+
 
 def clear(request):
     Question.objects.all().delete()

@@ -1,31 +1,42 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'qaa/style.css' %}">
+<!DOCTYPE html>
+<html>
 
-<form action="{% url 'qaa:create' %}" method="POST">
-    {% csrf_token %}
-    Введите вопрос:&thinsp;<input type="text" name="question" required autofocus><br>
-    Введите ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer" required><br>
-    <input type="submit" class="add_q" value="Добавить">
-</form>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'qaa/style.css' %}">
+</head>
 
---------------------------------------------------------<br><br>
+<body>
+    <form action="{% url 'qaa:create' %}" method="POST">
+        {% csrf_token %}
+        Введите вопрос:&thinsp;<input type="text" name="question" required autofocus><br>
+        Введите ответ:&ensp;&thinsp;&thinsp;<input type="text" name="answer" required><br>
+        <input type="submit" class="add_q" value="Добавить">
+    </form>
 
-{% if list_of_questions %}
+    --------------------------------------------------------<br><br>
+
+    {% if list_of_questions %}
     {% for question in list_of_questions %}
-        <b>Вопрос:</b> {{ question.question_text }}<br>
-        <b>Ответ:</b> {{ question.question_answer }}<br>
+    <b>Вопрос:</b> {{ question.question_text }}<br>
+    <b>Ответ:</b> {{ question.question_answer }}<br>
 
-        {% if question.human_answer %}
-            <b>Ответ человека:</b> {{ question.human_answer }}<br>
-        {% endif %}
+    {% if question.human_answer %}
+    <b>Ответ человека:</b> {{ question.human_answer }}<br>
+    {% endif %}
 
-        <a href="{% url 'qaa:edit' question.id %}">Изменить</a> | <a href="{% url 'qaa:delete' question.id %}" class="delete">Удалить</a><br>
-        --------------------------<br>
+    <a href="{% url 'qaa:edit' question.id %}">Изменить</a> | <a href="{% url 'qaa:delete' question.id %}"
+        class="delete">Удалить</a><br>
+    --------------------------<br>
     {% endfor %}
     --------------------------------------------------------<br>
     <a href="{% url 'qaa:start' %}">Начать тест</a>
     <a href="{% url 'qaa:clear' %}" class="delete">Отчистить</a>
-{% else %}
+    {% else %}
     Вопросов нет
-{% endif %}
+    {% endif %}
+</body>
+
+</html>
